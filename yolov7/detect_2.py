@@ -1,4 +1,7 @@
 # python detect.py --weights ./pretrained/yolov7-tiny.pt --source 0
+# python detect_2.py --weights ./pretrained/yolov7-tiny.pt --source 0
+# python detect.py --weights ./pretrained/yolov7-tiny.pt --source "http://172.30.1.2:4747/video"
+# python detect_2.py --weights ./pretrained/yolov7.pt --source "videos/video_0.mp4"
 import argparse
 import time
 from pathlib import Path
@@ -194,7 +197,10 @@ def detect(save_img=False):
         # import pdb; pdb.set_trace()
         # img_2 = im0s[0].squeeze(0)
         # img_3 = img_2.transpose(1,2,0)
-        display_frame = DepthScanner_class.colormap(im0s[0])
+        ## webcam
+        # display_frame = DepthScanner_class.colormap(im0s[0])
+        ## video
+        display_frame = DepthScanner_class.colormap(im0s)
         # cv2.imshow('frame', display_frame)
         # cv2.waitKey(1)
         # import pdb; pdb.set_trace()

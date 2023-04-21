@@ -11,7 +11,9 @@ mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
 # For webcam input:
-camera = cv2.VideoCapture(0)
+# camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture("http://172.30.1.2:4747/video")
+
 with mp_hands.Hands(
     model_complexity=0,
     min_detection_confidence=0.5,
@@ -65,27 +67,27 @@ with mp_hands.Hands(
                 bottom_right_corner = (x + box_offset[0] + half_box_size, y + box_offset[1] + half_box_size)
                 cv2.rectangle(frame, top_left_corner, bottom_right_corner, (0, 255, 0), 2)
 
-                # if (0 <= top_left_corner[0] < frame.shape[1] and 0 <= top_left_corner[1] < frame.shape[0] and
-                #         0 <= bottom_right_corner[0] < frame.shape[1] and 0 <= bottom_right_corner[1] < frame.shape[0]):
-                #     roi = frame[top_left_corner[1]:bottom_right_corner[1], top_left_corner[0]:bottom_right_corner[0]]
+                if (0 <= top_left_corner[0] < frame.shape[1] and 0 <= top_left_corner[1] < frame.shape[0] and
+                        0 <= bottom_right_corner[0] < frame.shape[1] and 0 <= bottom_right_corner[1] < frame.shape[0]):
+                    roi = frame[top_left_corner[1]:bottom_right_corner[1], top_left_corner[0]:bottom_right_corner[0]]
 
-                #     # img_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-                #     # img_blurred = cv2.GaussianBlur(img_gray, ksize=(5, 5), sigmaX=0)
+                    # img_gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+                    # img_blurred = cv2.GaussianBlur(img_gray, ksize=(5, 5), sigmaX=0)
 
-                #     # img_blur_thresh = cv2.adaptiveThreshold(
-                #     #     img_blurred,
-                #     #     maxValue=255.0,
-                #     #     adaptiveMethod=cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                #     #     thresholdType=cv2.THRESH_BINARY_INV,
-                #     #     blockSize=25,
-                #     #     C=9
-                #     # )
+                    # img_blur_thresh = cv2.adaptiveThreshold(
+                    #     img_blurred,
+                    #     maxValue=255.0,
+                    #     adaptiveMethod=cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                    #     thresholdType=cv2.THRESH_BINARY_INV,
+                    #     blockSize=25,
+                    #     C=9
+                    # )
 
-                #     # Perform OCR on the ROI
-                #     text = reader.readtext(roi, detail=0, paragraph=True)
-                #     print(text)
-                #     # Show img_blur_thresh in a separate window
-                #     cv2.imshow('Thresholded Image', roi)
+                    # Perform OCR on the ROI
+                    text = reader.readtext(roi, detail=0, paragraph=True)
+                    print(text)
+                    # Show img_blur_thresh in a separate window
+                    cv2.imshow('Thresholded Image', roi)
 
         # Calculate FPS and print on frame
         fps_frame_count += 1
